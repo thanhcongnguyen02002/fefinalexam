@@ -7,11 +7,12 @@ import {
 import UserList from "../component/UserList";
 import LayOut from "../component/LayOut";
 import ProductList from "../component/ProductList";
+import Loginpage from "../page/Login";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <LayOut />,
+    element: <Loginpage />,
   },
   {
     path: "/admin",

@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Modal, Radio, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addUsers, getUser, updateUsers } from "../Apis/UserApi";
 import { getType } from "../Apis/TypeApi";
-import { addProduct } from "../Apis/Product";
+import { addProduct, updateProduct } from "../Apis/Product";
 interface ProductModalProps {
   getData: () => void;
 }
 interface typeList {
   id: number;
-  typename: string;
+  name: string;
 }
 const ProductModal = ({ getData }: ProductModalProps) => {
   //{getData} = props
   const [form] = Form.useForm();
   const isOpen = useSelector((state: any) => state.product.isOpen);
-  const initialValues = useSelector((state: any) => state.user.initValue);
+  const initialValues = useSelector((state: any) => state.product.initValue);
   const distPatch = useDispatch();
-  const [option, setOption] = React.useState([]);
+  const [option, setOption] = React.useState([] as any);
   const getOption = async () => {
     const optionlist = await getType();
-    setOption(optionlist.data.content);
+    setOption(
+      optionlist.data.content.map((item: typeList) => ({
+        value: item.id,
+        label: item.name,
+      }))
+    );
   };
   React.useEffect(() => {
     getOption();
   }, []);
-  const mapData2Option = option.map((e) => ({}));
-
+  // const mapData2Option = option.map((e) => ({}))
+  console.log(option);
   useEffect(() => form.resetFields(), [initialValues]);
   return (
     <Modal
@@ -46,7 +50,7 @@ const ProductModal = ({ getData }: ProductModalProps) => {
             //update or insert
 
             initialValues.id
-              ? await updateUsers(initialValues.id, values)
+              ? await updateProduct(initialValues.id, values)
               : await addProduct(values.type_id, values);
             console.log(values);
 
@@ -83,9 +87,14 @@ const ProductModal = ({ getData }: ProductModalProps) => {
         <Form.Item name="image" label="image">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item name="type_id" label="type_id">
+        {/* <Form.Item name="type_id" label="type_id">
           <Input type="textarea" />
+        </Form.Item> */}
+
+        <Form.Item name="type_id" label="type name">
+          <Select options={option}></Select>
         </Form.Item>
+
         <Form.Item name="price" label="price">
           <Input type="textarea" />
         </Form.Item>

@@ -28,5 +28,17 @@ const createProduct = (payload: {
 }) => {
   return axiosClient.post(`product/create`, payload);
 };
+const updateProduct = (
+  id: number,
+  payload: {
+    productname: string;
+    description: string;
+    image: string;
+    type_id: number;
+    price: number;
+  }
+) => {
+  return axiosClient.patch(`product/update/${id}`, payload);
+};
 
-export { getProduct, deleteProduct, addProduct, createProduct };
+export { getProduct, deleteProduct, addProduct, createProduct, updateProduct };

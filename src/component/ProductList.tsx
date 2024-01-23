@@ -49,10 +49,10 @@ const ProductList: React.FC = () => {
       ),
     },
     {
-      title: "type_id",
+      title: "type name",
       dataIndex: "type_id",
       key: "type_id",
-      render: (_, record: any) => <p>{record.type.id}</p>,
+      render: (_, record: any) => <p>{record.type.name}</p>,
     },
     {
       title: "price",
@@ -75,10 +75,10 @@ const ProductList: React.FC = () => {
                   isOpen: true,
                   initValue: {
                     id: record.id,
-                    username: record.description,
-                    password: record.image,
-                    role: record.price,
-                    email: record.productname,
+                    description: record.description,
+                    image: record.image,
+                    price: record.price,
+                    productname: record.productname,
                     type_id: record.type_id,
                   },
                 },
@@ -91,6 +91,7 @@ const ProductList: React.FC = () => {
             href="/"
             onClick={(event: any) => {
               event.preventDefault();
+              console.log(record);
               confirm({
                 title: "confirm",
                 icon: <ExclamationCircleOutlined />,

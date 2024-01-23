@@ -73,7 +73,13 @@ const LayOut: React.FC = () => {
             borderBottom: "1px  black solid",
           }}
         >
-          <Button type="primary" danger>
+          <Button
+            type="primary"
+            danger
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Log out{" "}
           </Button>
         </Header>
